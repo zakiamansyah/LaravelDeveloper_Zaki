@@ -24,7 +24,7 @@
     ```
 
 4. Generate an application :
-key    ```sh
+    ```sh
     php artisan key:generate
     ```
 
