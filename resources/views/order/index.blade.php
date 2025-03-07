@@ -21,13 +21,13 @@
         <td>{{ $order->status }}</td>
         <td>
             <a href="{{ route('order.show', $order->id) }}" class="btn btn-info">View</a>
-            {{-- <a href="{{ route('order.edit', $order->id) }}" class="btn btn-warning">Edit</a>
+            <a href="{{ route('order.edit', $order->id) }}" class="btn btn-warning">Edit</a>
     
             <form action="{{ route('order.destroy', $order->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this order?');">Delete</button>
-            </form> --}}
+            </form>
         </td>
     </tr>
     @endforeach

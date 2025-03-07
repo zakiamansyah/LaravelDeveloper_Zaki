@@ -31,6 +31,10 @@ class OrderController extends Controller
     public function getOrderById($id){
         $order = $this->orderRepository->getOrderById($id);
 
+        if (!$order) {
+            return redirect()->route('order.index')->with('error', 'Order not found');
+        }
+
         return view('order.show', compact('order'));
     }
 
@@ -64,30 +68,50 @@ class OrderController extends Controller
         }
     }
 
-    public function editOrder(){
+    public function editOrder($id)
+    {
+        $order = $this->orderRepository->getOrderById($id);
+        if (!$order) {
+            return redirect()->route('order')->with('error', 'Order not found');
+        }
+
         $users = $this->authRepository->getAllUser();
         $products = $this->productRepository->getAllProducts();
 
-        return view('order.edit', compact('users', 'products'));
+        return view('order.edit', compact('order', 'users', 'products'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
-            'product_id'       => 'sometimes',
-            'order_number'     => 'sometimes|unique:orders,order_number,' . $id,
-            'status'           => 'sometimes|string',
-            'total_price'      => 'sometimes|numeric',
-            'shipping_address' => 'sometimes|string',
+            'product_id'       => 'required|exists:products,id',
+            'order_number'     => 'required|unique:orders,order_number,' . $id,
+            'status'           => 'required|string',
+            'total_price'      => 'required|numeric|min:0',
+            'shipping_address' => 'required|string',
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        return $this->orderRepository->updateOrder($request, $id);
+        $updateResult = $this->orderRepository->updateOrder($request, $id);
+
+        if ($updateResult) {
+            return redirect()->route('order')->with('success', 'Order updated successfully');
+        }
+
+        return redirect()->back()->with('error', 'Failed to update order');
     }
 
-    public function delete($id){
-        return $this->orderRepository->deleteOrder($id);
+    public function delete($id)
+    {
+        $order = $this->orderRepository->deleteOrder($id);
+
+        if (!$order) {
+            return redirect()->route('order')->with('error', 'Order not found or could not be deleted.');
+        }
+
+        return redirect()->route('order')->with('success', 'Order deleted successfully.');
     }
 }

@@ -1,25 +1,49 @@
 @extends('layout')
 
 @section('content')
-<h2>Edit Order</h2>
-<form method="POST" action="{{ route('orders.update', $order->id) }}">
-    @csrf @method('PUT')
-    <div class="mb-3">
-        <label class="form-label">Customer Name</label>
-        <input type="text" name="customer_name" class="form-control" value="{{ $order->customer_name }}" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Total Amount</label>
-        <input type="number" name="total_amount" class="form-control" step="0.01" value="{{ $order->total_amount }}" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Status</label>
-        <select name="status" class="form-control" required>
-            <option value="Pending" {{ $order->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-            <option value="Completed" {{ $order->status == 'Completed' ? 'selected' : '' }}>Completed</option>
-            <option value="Cancelled" {{ $order->status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-warning">Update</button>
-</form>
+<div class="container">
+    <h2>Edit Order</h2>
+
+    <form action="{{ route('order.update', $order->id) }}" method="POST">
+        @csrf
+
+        <div class="mb-3">
+            <label class="form-label">Product</label>
+            <select name="product_id" class="form-control">
+                @foreach($products as $product)
+                    <option value="{{ $product->id }}" {{ $order->product_id == $product->id ? 'selected' : '' }}>
+                        {{ $product->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Order Number</label>
+            <input type="text" name="order_number" value="{{ $order->order_number }}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-control">
+                <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Completed</option>
+                <option value="canceled" {{ $order->status == 'canceled' ? 'selected' : '' }}>Canceled</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Total Price</label>
+            <input type="number" name="total_price" value="{{ $order->total_price }}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Shipping Address</label>
+            <input type="text" name="shipping_address" value="{{ $order->shipping_address }}" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Update Order</button>
+        <a href="{{ route('order') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
 @endsection

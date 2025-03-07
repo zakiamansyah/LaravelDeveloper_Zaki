@@ -10,13 +10,13 @@
 <table class="table table-bordered">
     <tr>
         <th>Product</th>
-        {{-- <th>Quantity</th> --}}
+        <th>Quantity</th>
         <th>Price</th>
     </tr>
     @foreach($order->products as $product)
     <tr>
         <td>{{ $product->name }}</td>
-        {{-- <td>{{ $product->pivot->quantity }}</td> --}}
+        <td>{{ $product->pivot->quantity }}</td>
         <td>${{ number_format($product->price, 2) }}</td>
     </tr>
     @endforeach

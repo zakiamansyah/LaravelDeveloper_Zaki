@@ -24,8 +24,8 @@ Route::get('order/createOrder', [OrderController::class, 'createOrder'])->name('
 Route::get('order/getAll', [OrderController::class, 'getAllOrder'])->name('order');
 Route::get('order/{id}', [OrderController::class, 'getOrderById'])->name('order.show');
 Route::post('order', [OrderController::class, 'store'])->name('orders.store');
-Route::get('order/editOrder', [OrderController::class, 'editOrder'])->name('order.edit');
-Route::post('order/update/{id}', [OrderController::class, 'update']);
+Route::get('/order/{id}/edit', [OrderController::class, 'editOrder'])->name('order.edit');
+Route::post('order/update/{id}', [OrderController::class, 'update'])->name('order.update');
 Route::delete('order/delete/{id}', [OrderController::class, 'delete'])->name('order.destroy');
 
 Route::get('category/getAll', [CategoryController::class, 'getAllCategories'])->name('category');

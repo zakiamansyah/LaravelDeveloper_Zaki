@@ -82,25 +82,23 @@ class OrderRepository implements OrderRepositoryInterface
     }
 
 
-    public function updateOrder($request, $id){
+    public function updateOrder($request, $id)
+    {
         $order = $this->order->find($id);
 
         if (!$order) {
-            return response()->json(['message' => 'Order not found'], 404);
+            return false;
         }
 
         $order->update([
-            'product_id'       => $request->product_id ?? $order->product_id,
-            'order_number'     => $request->order_number ?? $order->order_number,
-            'status'           => $request->status ?? $order->status,
-            'total_price'      => $request->total_price ?? $order->total_price,
-            'shipping_address' => $request->shipping_address ?? $order->shipping_address,
+            'product_id'       => $request->product_id,
+            'order_number'     => $request->order_number,
+            'status'           => $request->status,
+            'total_price'      => $request->total_price,
+            'shipping_address' => $request->shipping_address,
         ]);
 
-        return response()->json([
-            'message' => 'Order updated successfully',
-            'order'   => $order
-        ], 200);
+        return true;
     }
 
     public function deleteOrder($id){
