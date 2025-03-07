@@ -28,11 +28,14 @@ Route::get('/order/{id}/edit', [OrderController::class, 'editOrder'])->name('ord
 Route::post('order/update/{id}', [OrderController::class, 'update'])->name('order.update');
 Route::delete('order/delete/{id}', [OrderController::class, 'delete'])->name('order.destroy');
 
-Route::get('category/getAll', [CategoryController::class, 'getAllCategories'])->name('category');
-Route::get('category/{id}', [CategoryController::class, 'getCategoryById']);
-Route::post('category/create', [CategoryController::class, 'createCategory']);
-Route::post('category/update/{id}', [CategoryController::class, 'updateCategory']);
-Route::delete('category/delete/{id}', [CategoryController::class, 'deleteCategory']);
+Route::get('category/createCategory', [CategoryController::class, 'createCategory'])->name('category.create');
+
+Route::get('category', [CategoryController::class, 'getAllCategories'])->name('category');
+Route::get('category/{id}', [CategoryController::class, 'getCategoryById'])->name(name: 'category.show');
+Route::post('category', [CategoryController::class, 'store'])->name('categories.store');
+Route::get('/category/{id}/edit', [CategoryController::class, 'editCategory'])->name('category.edit');
+Route::post('category/update/{id}', [CategoryController::class, 'updateCategory'])->name('category.update');
+Route::delete('category/delete/{id}', [CategoryController::class, 'deleteCategory'])->name('category.delete');
 
 Route::get('product/create', [ProductController::class, 'createProduct'])->name('products.create');
 Route::get('product/getAll', [ProductController::class, 'getAllProducts'])->name('product');

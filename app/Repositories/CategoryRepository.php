@@ -17,14 +17,12 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function getAllCategories()
     {
         return $this->category->getAllCategories();
-
-        // return response()->json($this->category->getAllCategories(), 200);
     }
 
     public function getCategoryById($id)
     {
 
-        return response()->json($this->category->getCategoryById($id), 200);
+        return $this->category->getCategoryById($id);
     }
 
     public function createCategory($request)
@@ -33,7 +31,7 @@ class CategoryRepository implements CategoryRepositoryInterface
             'name' => $request->input('name')
         ];
 
-        return response()->json($this->category->createCategory($data), 200);
+        return $this->category->createCategory($data);
     }
 
     public function updateCategory($request, $id)
@@ -42,12 +40,12 @@ class CategoryRepository implements CategoryRepositoryInterface
             'name' => $request->input('name')
         ];
 
-        return response()->json($this->category->updateCategory($data, $id), 200);
+        return $this->category->updateCategory($data, $id);
     }
 
     public function deleteCategory($id)
     {
-        return response()->json($this->category->deleteCategory($id), 200);
+        return $this->category->deleteCategory($id);
     }
 }
 

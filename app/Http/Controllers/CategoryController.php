@@ -17,25 +17,53 @@ class CategoryController extends Controller
 
     public function getAllCategories()
     {
-        return $this->categoryRepository->getAllCategories();
+        $categories = $this->categoryRepository->getAllCategories();
+
+        return view('categories.index', compact('categories'));
     }
 
     public function getCategoryById($id)
     {
-        return $this->categoryRepository->getCategoryById($id);
+        $category = $this->categoryRepository->getCategoryById($id);
+
+        if (!$category) {
+            return redirect()->route('category')->with('error', 'Category not found');
+        }
+
+        return view('categories.show', compact('category'));
     }
 
-    public function createCategory(Request $request)
+    public function createCategory()
+    {
+        return view('categories.create');
+    }
+
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'        => 'required|string|max:255|unique:categories',
+            'name' => 'required|string|max:255|unique:categories',
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            return redirect()->back()->withInput();
+        } 
+
+        $check = $this->categoryRepository->createCategory($request);
+        if($check){
+            return redirect()->route('category');
+        }else{
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function editCategory($id)
+    {
+        $category = $this->categoryRepository->getCategoryById($id);
+        if (!$category) {
+            return redirect()->route('category')->with('error', 'Category not found');
         }
 
-        return $this->categoryRepository->createCategory($request);
+        return view('categories.edit', compact('category'));
     }
 
     public function updateCategory(Request $request, $id)
@@ -45,15 +73,27 @@ class CategoryController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        return $this->categoryRepository->updateCategory($request, $id);
+        $updateResult = $this->categoryRepository->updateCategory($request, $id);
+
+        if ($updateResult) {
+            return redirect()->route('category')->with('success', 'Category updated successfully');
+        }
+
+        return redirect()->back()->with('error', 'Failed to update Category');
     }
 
     public function deleteCategory($id)
     {
-        return $this->categoryRepository->deleteCategory($id);
+        $category = $this->categoryRepository->deleteCategory($id);
+
+        if (!$category) {
+            return redirect()->route('category')->with('error', 'Category not found or could not be deleted.');
+        }
+
+        return redirect()->route('category')->with('success', 'Category deleted successfully.');
     }
 }
 
