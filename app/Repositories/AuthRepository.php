@@ -30,9 +30,15 @@ class AuthRepository implements AuthRepositoryInterface
         return response()->json(['error' => 'Invalid credentials'], 401);
     }
 
-    public function logout(){
+    public function logout()
+    {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
 
+        return redirect('auth/login')->with('success', 'Logged out successfully.');
     }
+
 
     public function getAuthenticatedUser(){
 

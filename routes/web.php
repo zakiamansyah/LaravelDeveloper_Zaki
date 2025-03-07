@@ -15,6 +15,7 @@ Route::prefix('auth')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegister']);
     Route::post('register', [AuthController::class, 'register']);
     Route::get('user/{id}', [AuthController::class, 'getUser']);
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 // Order Routes

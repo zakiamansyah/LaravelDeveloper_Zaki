@@ -18,7 +18,14 @@
                     <li class="nav-item"><a href={{ route('category') }} class="nav-link">Categories</a></li>
                     <li class="nav-item"><a href={{ route('product') }}  class="nav-link">Products</a></li>
                     <li class="nav-item"><a href={{ route('order') }} class="nav-link">Orders</a></li>
-                    <li class="nav-item"><a class="nav-link">Logout</a></li>
+                    <li class="nav-item">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

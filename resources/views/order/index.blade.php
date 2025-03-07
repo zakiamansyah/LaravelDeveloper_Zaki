@@ -2,6 +2,11 @@
 
 @section('content')
 <h2>Orders</h2>
+
+@if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
 <a href="{{ route('order.create') }}" class="btn btn-success mb-3">Add Order</a>
 <table class="table table-bordered">
     <tr>
