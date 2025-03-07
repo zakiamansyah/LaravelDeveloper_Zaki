@@ -15,9 +15,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a href={{ route('category') }} class="nav-link">Categories</a></li>
-                    <li class="nav-item"><a href={{ route('product') }}  class="nav-link">Products</a></li>
-                    <li class="nav-item"><a href={{ route('order') }} class="nav-link">Orders</a></li>
+                    <li class="nav-item"><a href="{{ route('category') }}" class="nav-link">Categories</a></li>
+                    <li class="nav-item"><a href="{{ route('product') }}" class="nav-link">Products</a></li>
+                    <li class="nav-item"><a href="{{ route('order') }}" class="nav-link">Orders</a></li>
+                    <li class="nav-item"><a href="{{ route('character.match') }}" class="nav-link">Character Match</a></li>
                     <li class="nav-item">
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf

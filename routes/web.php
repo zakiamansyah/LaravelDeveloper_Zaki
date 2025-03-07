@@ -7,7 +7,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-// Auth Routes
 Route::prefix('auth')->group(function () {
     Route::get('generateCsrfToken', [AuthController::class, 'generateCsrfToken']);
     Route::get('/login', [AuthController::class, 'showLoginForm']);
@@ -18,7 +17,6 @@ Route::prefix('auth')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-// Order Routes
 Route::prefix('order')->group(function () {
     Route::get('/create', [OrderController::class, 'createOrder'])->name('order.create');
     Route::get('/getAll', [OrderController::class, 'getAllOrder'])->name('order');
@@ -29,7 +27,6 @@ Route::prefix('order')->group(function () {
     Route::delete('/delete/{id}', [OrderController::class, 'delete'])->name('order.destroy');
 });
 
-// Category Routes
 Route::prefix('category')->group(function () {
     Route::get('/create', [CategoryController::class, 'createCategory'])->name('category.create');
     Route::get('/', [CategoryController::class, 'getAllCategories'])->name('category');
@@ -40,7 +37,6 @@ Route::prefix('category')->group(function () {
     Route::delete('/delete/{id}', [CategoryController::class, 'deleteCategory'])->name('category.delete');
 });
 
-// Product Routes
 Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'getAllProducts'])->name('product');
     Route::get('/create', [ProductController::class, 'createProduct'])->name('products.create');
@@ -51,7 +47,6 @@ Route::prefix('product')->group(function () {
     Route::delete('/delete/{id}', [ProductController::class, 'deleteProduct'])->name('products.delete');
 });
 
-// Character Match Routes
 Route::prefix('character-match')->group(function () {
     Route::get('/', [CharacterMatchController::class, 'index'])->name('character.match');
     Route::post('/', [CharacterMatchController::class, 'calculate'])->name('character.match.calculate');
