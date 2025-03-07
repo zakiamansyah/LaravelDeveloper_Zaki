@@ -5,7 +5,8 @@ namespace App\Trait;
 trait ProductTrait
 {
     public function getAllProducts(){
-        return $this->get();
+        
+        return $this->with('category')->get(); 
     }
 
     public function getProductById($id){

@@ -2,7 +2,7 @@
 
 @section('content')
 <h2>Orders</h2>
-<a href="{{ route('order.createOrder') }}" class="btn btn-success mb-3">Add Order</a>
+<a href="{{ route('order.create') }}" class="btn btn-success mb-3">Add Order</a>
 <table class="table table-bordered">
     <tr>
         <th>Order Number</th>

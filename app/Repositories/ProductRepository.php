@@ -22,38 +22,38 @@ class ProductRepository implements ProductRepositoryInterface
     public function getProductById($id)
     {
 
-        return response()->json($this->product->getProductById($id), 200);
+        return $this->product->getProductById($id);
     }
 
     public function createProduct($request)
     {
         $data = [
-            'category_id' => $request->input('category_id'),
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'price' => $request->input('price'),
-            'stock' => $request->input('stock'),
+            'category_id' => $request['category_id'],
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'price' => $request['price'],
+            'stock' => $request['stock'],
         ];
 
-        return response()->json($this->product->createProduct($data), 200);
+        return $this->product->createProduct($data);
     }
 
     public function updateProduct($request, $id)
     {
         $data = [
-            'category_id' => $request->input('category_id'),
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'price' => $request->input('price'),
-            'stock' => $request->input('stock'),
+            'category_id' => $request['category_id'],
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'price' => $request['price'],
+            'stock' => $request['stock'],
         ];
 
-        return response()->json($this->product->updateProduct($data, $id), 200);
+        return $this->product->updateProduct($data, $id);
     }
 
     public function deleteProduct($id)
     {
-        return response()->json($this->product->deleteProduct($id), 200);
+        return $this->product->deleteProduct($id);
     }
 }
 
