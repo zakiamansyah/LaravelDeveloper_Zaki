@@ -27,7 +27,7 @@
                     <button type="submit" class="btn btn-success">Register</button>
                 </form>
                 <div class="mt-3">
-                    <p>Already have an account? <a href="{{ url('login') }}">Login here</a></p>
+                    <p>Already have an account? <a href="{{ url('/auth/login') }}">Login here</a></p>
                 </div>
             </div>
         </div>
