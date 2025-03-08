@@ -21,7 +21,7 @@
 
                 <div class="mt-3 text-center">
                     <p>Don't have an account?</p>
-                    <a href="{{ url('register') }}" class="btn btn-danger">Register</a>
+                    <a href="{{ url('/auth/register') }}" class="btn btn-danger">Register</a>
                 </div>
             </div>
         </div>
