@@ -49,7 +49,7 @@ class AuthRepository implements AuthRepositoryInterface
             'username' => $credentials['username'],
             'password' => Hash::make($credentials['password']),
             'name' => $credentials['username'],
-            'email' => ''
+            'email' => 'zakiaman23@gmail.com'
         ]);
 
         // $token = $user->createToken('authToken')->plainTextToken;
@@ -58,7 +58,7 @@ class AuthRepository implements AuthRepositoryInterface
             // 'token' => $token
         ];
 
-        return response()->json($data, 200);
+        return $data;
     }
 
     public function getUser($id)
